@@ -1,7 +1,7 @@
 import {Center, Container, VStack} from "@chakra-ui/react";
 import {Navigate, Outlet} from "react-router";
 import Header from "../components/header.tsx";
-import {useAuth} from "../hooks/useAuth.tsx";
+import {useAuth} from "../context/useAuth.tsx";
 
 export default function PrivateLayout() {
     const {isAuthenticated} = useAuth();

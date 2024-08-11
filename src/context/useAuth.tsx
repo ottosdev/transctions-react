@@ -1,6 +1,6 @@
 import {createContext, ReactNode, useContext, useState} from "react";
-import {api} from "../services/api.ts";
 import {useToast} from "@chakra-ui/react";
+import {signIn} from "../services/user/signin.ts";
 
 interface AuthContextProps {
     login: (email: string, password: string) => Promise<void>;
@@ -31,7 +31,7 @@ export function AuthProvider({children}: AuthProviderProps) {
         if (email === '' || password === '') {
             toast({
                 title: 'Error',
-                description: 'Email and password are required',
+                description: 'E-mail ou a Senha são obrigatórios',
                 status: 'error',
                 duration: 5000,
                 position: 'top-right',
@@ -42,7 +42,7 @@ export function AuthProvider({children}: AuthProviderProps) {
 
         try {
             const data = {email, password}
-            const response = await api.post('/auth/sign-in', data);
+            const response = await signIn(data)
             localStorage.setItem('@auth', response.data.token);
             localStorage.setItem('@user_name', response.data.name);
             setIsAuthenticated(true);
@@ -50,7 +50,7 @@ export function AuthProvider({children}: AuthProviderProps) {
         } catch (err) {
             toast({
                 title: 'Error',
-                description: 'Invalid email or password',
+                description: 'Error ao realizar o login',
                 status: 'error',
                 duration: 5000,
                 position: 'top-right',

@@ -1,7 +1,7 @@
 import axios from "axios";
-import {createStandaloneToast} from "@chakra-ui/react";
+// import {createStandaloneToast} from "@chakra-ui/react";
 
-const {toast} = createStandaloneToast()
+// const {toast} = createStandaloneToast()
 
 export const api = axios.create({
     baseURL: 'http://localhost:3000',
@@ -22,21 +22,21 @@ api.interceptors.request.use(
     }
 );
 
-api.interceptors.response.use((response) => response, (error) => {
-    if (error.response.status === 401) {
-        toast({
-            status:'error',
-            title: 'Unauthorized',
-            description: error.response.message,
-            duration: 3000,
-            position: 'top-right',
-            isClosable: true,
-            onCloseComplete: () => {
-                localStorage.removeItem('@auth');
-                window.location.href = '/';
-            }
-        })
-
-    }
-    return Promise.reject(error);
-})
+// api.interceptors.response.use((response) => response, (error) => {
+//     if (error.response.status === 401) {
+//         toast({
+//             status:'error',
+//             title: 'Unauthorized',
+//             description: error.response.message,
+//             duration: 3000,
+//             position: 'top-right',
+//             isClosable: true,
+//             onCloseComplete: () => {
+//                 localStorage.removeItem('@auth');
+//                 window.location.href = '/';
+//             }
+//         })
+//
+//     }
+//     return Promise.reject(error);
+// })

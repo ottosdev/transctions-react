@@ -12,6 +12,7 @@ interface RegisterUser {
 }
 
 export default function Register() {
+    const [loading, setLoading] = useState(false);
     const [lookPassword, setLookPassword] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -35,11 +36,12 @@ export default function Register() {
         }
 
         try {
+            setLoading(true);
             const newUser: RegisterUser = {
                 name, email, password
             }
 
-            await api.post('/auth/sign-up', newUser)
+            await api.post('/auth/sign-up', newUser);
 
             toast({
                 title: 'Usuario registrado com sucesso',
@@ -47,14 +49,16 @@ export default function Register() {
                 onCloseComplete: () => {
                     navigate(`/?email=${email}`);
                 }
-            })
+            });
 
         } catch (e) {
             toast({
                 title: 'Error',
                 description: 'Error ao registrar usuario',
                 status: 'error',
-            })
+            });
+        } finally {
+            setLoading(false);
         }
 
     }
@@ -77,7 +81,7 @@ export default function Register() {
                     <Link to='/'>
                         <Button type='button'> Volta</Button>
                     </Link>
-                    <Button type='submit' colorScheme='green'>Registar</Button>
+                    <Button type='submit' colorScheme='green' isLoading={loading} >Registar</Button>
                 </HStack>
 
             </VStack>

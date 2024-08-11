@@ -3,7 +3,7 @@ import SummaryGridItem from "./summary-grid-item.tsx";
 import {useContext, useEffect, useState} from "react";
 import {findSummary} from "../../services/transactions/find-summary.ts";
 import {useCustomToast} from "../../util/custom-toast.ts";
-import {TransactionsContext} from "../../hooks/useTransactions.tsx";
+import {TransactionsContext} from "../../context/useTransactions.tsx";
 
 interface SummaryProps {
     total: number;

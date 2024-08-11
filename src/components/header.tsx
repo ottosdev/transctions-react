@@ -1,6 +1,6 @@
 import {HStack} from "@chakra-ui/react";
 import MenuProfile from "./menu-profile.tsx";
-import {useAuth} from "../hooks/useAuth.tsx";
+import {useAuth} from "../context/useAuth.tsx";
 
 export default function Header() {
 

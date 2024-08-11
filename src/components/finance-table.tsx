@@ -1,5 +1,5 @@
 import {Center, HStack, Table, TableContainer, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
-import {TransactionsContext} from "../hooks/useTransactions.tsx";
+import {TransactionsContext} from "../context/useTransactions.tsx";
 import {useContext} from "react";
 import {DeleteIcon} from "@chakra-ui/icons";
 import {formatDate} from "../util/format-date.ts";
@@ -27,7 +27,7 @@ export default function FinanceTable() {
                                 <Td> {formatDate(transaction.createdAt)}</Td>
                                 <Td>
                                     <HStack>
-                                        <DeleteIcon color='red.200' onClick={() => deleteTransaction(transaction.id)}/>
+                                        <DeleteIcon cursor='pointer' color='red.200' onClick={() => deleteTransaction(transaction.id)}/>
                                     </HStack>
 
                                 </Td>

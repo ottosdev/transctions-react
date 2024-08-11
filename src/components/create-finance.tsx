@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import {FormEvent, useContext, useState} from "react";
 
-import {TransactionsContext} from "../hooks/useTransactions.tsx";
+import {TransactionsContext} from "../context/useTransactions.tsx";
 import {AddIcon} from "@chakra-ui/icons";
 import {useCustomToast} from "../util/custom-toast.ts";
 
@@ -29,8 +29,8 @@ export default function CreateFinance() {
         e.preventDefault();
         if (name === '' || price === '') {
             toast({
-                title: 'Erro',
-                description: 'Fill in all fields',
+                title: 'Error',
+                description: 'Preencha todos os campos',
                 status: 'error',
             })
 

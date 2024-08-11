@@ -4,23 +4,22 @@ import {
     Input, Text,
     VStack
 } from "@chakra-ui/react";
-import {FormEvent, useEffect, useState} from "react";
+import {FormEvent, useState} from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
-import {useAuth} from "../../hooks/useAuth.tsx";
+import {useAuth} from "../../context/useAuth.tsx";
 import {FaEye, FaEyeSlash} from "react-icons/fa6";
 
 export default function SignIn() {
     const navigate = useNavigate();
-    const authenticated = false;
     const [lookPassword, setLookPassword] = useState(false);
     const [searchParams] = useSearchParams();
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState(() => {
         return searchParams.get('email') ?? ''
     });
-    const {login, isAuthenticated} = useAuth();
-
     const [password, setPassword] = useState('');
+
+    const {login} = useAuth();
 
     function toggleLookPassword() {
         setLookPassword(!lookPassword);
@@ -30,11 +29,6 @@ export default function SignIn() {
         navigate('/register');
     }
 
-    useEffect(() => {
-        if (authenticated) {
-            navigate('/dashboard');
-        }
-    })
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
@@ -50,12 +44,6 @@ export default function SignIn() {
         }
     }
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            navigate('/dashboard');
-        }
-    }, [navigate, isAuthenticated])
-
     return (
         <form style={{width: '100%'}} onSubmit={handleSubmit}>
             <VStack>
@@ -63,10 +51,11 @@ export default function SignIn() {
 
                 <Input placeholder='Email' value={email} onChange={e => setEmail(e.target.value)}/>
                 <HStack w='100%'>
-                    <Input placeholder='Password' type={lookPassword ? 'text' : 'password'}
+                    <Input placeholder='Password'
+                           type={lookPassword ? 'text' : 'password'}
                            onChange={e => setPassword(e.target.value)}/>
                     <Button onClick={toggleLookPassword}>
-                        {lookPassword ? < FaEyeSlash  /> : < FaEye  />}
+                        {lookPassword ? < FaEyeSlash/> : < FaEye/>}
                     </Button>
                 </HStack>
                 <HStack>
