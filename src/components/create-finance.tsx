@@ -12,6 +12,7 @@ import {FormEvent, useContext, useState} from "react";
 import {TransactionsContext} from "../context/useTransactions.tsx";
 import {AddIcon} from "@chakra-ui/icons";
 import {useCustomToast} from "../util/custom-toast.ts";
+import {CreateTransaction} from "../services/transactions/create-transaction.ts";
 
 export default function CreateFinance() {
     const {isOpen, onOpen, onClose} = useDisclosure();
@@ -32,12 +33,13 @@ export default function CreateFinance() {
                 title: 'Error',
                 description: 'Preencha todos os campos',
                 status: 'error',
+                position: 'top'
             })
 
             return;
         }
 
-        const data = {
+        const data: CreateTransaction = {
             name,
             price: Number(price),
             type
@@ -60,7 +62,7 @@ export default function CreateFinance() {
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay/>
                 <ModalContent>
-                    <ModalHeader>Register </ModalHeader>
+                    <ModalHeader>Adicionar </ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody>
                         <form onSubmit={handleSubmit}>
@@ -77,7 +79,7 @@ export default function CreateFinance() {
                                 <Input placeholder='Nome' onChange={e => setName(e.target.value)}/>
                                 <Input placeholder='Valor' onChange={e => setPrice(e.target.value)}/>
                                 <Button bg='green.200' color='white' _hover={{bg: 'green.300'}} w='100%'
-                                        type='submit'>Register</Button>
+                                        type='submit'>Registrar</Button>
                             </VStack>
                         </form>
                     </ModalBody>

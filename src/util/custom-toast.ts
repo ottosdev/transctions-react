@@ -1,16 +1,9 @@
-import {useToast} from "@chakra-ui/react";
-
-interface ToastProps {
-    title: string;
-    status: "success" | "error" | "warning" | "info";
-    description?: string;
-    onCloseComplete?: () => void;
-}
+import {useToast, ToastProps} from "@chakra-ui/react";
 
 export function useCustomToast() {
     const toast = useToast();
 
-    function showToast({title, status, description, onCloseComplete}: ToastProps) {
+    function showToast({title, status, description, onCloseComplete, position}: ToastProps) {
         toast({
             title,
             status,
@@ -18,7 +11,7 @@ export function useCustomToast() {
             onCloseComplete,
             duration: 3000,
             isClosable: true,
-            position: 'top-right',
+            position: position ? position : 'top-right'
         })
     }
 

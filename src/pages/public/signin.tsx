@@ -1,7 +1,7 @@
 import {
     Button,
     HStack,
-    Input, Text,
+    Input, Text, useToast,
     VStack
 } from "@chakra-ui/react";
 import {FormEvent, useState} from "react";
@@ -11,6 +11,7 @@ import {FaEye, FaEyeSlash} from "react-icons/fa6";
 
 export default function SignIn() {
     const navigate = useNavigate();
+    const toast = useToast();
     const [lookPassword, setLookPassword] = useState(false);
     const [searchParams] = useSearchParams();
     const [isLoading, setIsLoading] = useState(false);
@@ -32,15 +33,29 @@ export default function SignIn() {
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
-        setIsLoading(true);
+
+        if (email === '' || password === '') {
+            toast({
+                title: 'Error',
+                description: 'E-mail ou a Senha são obrigatórios',
+                status: 'error',
+                duration: 5000,
+                position: 'top-right',
+                isClosable: true
+            })
+            return;
+        }
 
         try {
+            setIsLoading(true);
             await login(email, password);
 
             setIsLoading(false);
             navigate("/dashboard", {replace: true});
         } catch (error) {
             setIsLoading(false);
+        } finally {
+            setIsLoading(false)
         }
     }
 

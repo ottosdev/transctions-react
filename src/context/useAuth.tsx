@@ -28,18 +28,6 @@ export function AuthProvider({children}: AuthProviderProps) {
     })
 
     async function login(email: string, password: string) {
-        if (email === '' || password === '') {
-            toast({
-                title: 'Error',
-                description: 'E-mail ou a Senha são obrigatórios',
-                status: 'error',
-                duration: 5000,
-                position: 'top-right',
-                isClosable: true
-            })
-            return;
-        }
-
         try {
             const data = {email, password}
             const response = await signIn(data)

@@ -1,6 +1,6 @@
 import {api} from "../api.ts";
 
-interface CreateTransaction {
+export interface CreateTransaction {
     name: string;
     price: number;
     type: string;
